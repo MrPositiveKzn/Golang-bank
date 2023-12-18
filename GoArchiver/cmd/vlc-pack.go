@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-var vlcCmd = &cobra.Command{
+var vlcPackCmd = &cobra.Command{
 	Use:   "vlc",
 	Short: "Pack file using vlc",
 	Run:   pack,
@@ -40,7 +40,7 @@ func pack(_ *cobra.Command, args []string) {
 
 	packed := vlc.Encode(string(data))
 
-	err = os.WriteFile(packedFileName(filePath), []byte(packed), 0644)
+	err = os.WriteFile(packedFileName(filePath), packed, 0644)
 	if err != nil {
 		handleErr(err)
 	}
@@ -53,5 +53,5 @@ func packedFileName(path string) string {
 }
 
 func init() {
-	packCmd.AddCommand(vlcCmd)
+	packCmd.AddCommand(vlcPackCmd)
 }
