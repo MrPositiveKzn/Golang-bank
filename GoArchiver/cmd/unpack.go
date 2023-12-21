@@ -1,11 +1,13 @@
 package cmd
 
-import "github.com/spf13/cobra"
 import (
+	"GoArchiver/lib/compression/vlc/table/shannon_fano"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/spf13/cobra"
 
 	"GoArchiver/lib/compression"
 	"GoArchiver/lib/compression/vlc"
@@ -17,6 +19,7 @@ var unpackCmd = &cobra.Command{
 	Run:   unpack,
 }
 
+// TODO: take extension from the file
 const unpackedExtension = "txt"
 
 func unpack(cmd *cobra.Command, args []string) {
@@ -30,7 +33,7 @@ func unpack(cmd *cobra.Command, args []string) {
 
 	switch method {
 	case "vlc":
-		decoder = vlc.New()
+		decoder = vlc.New(shannon_fano.Generator{})
 	default:
 		cmd.PrintErr("unknown method")
 	}
@@ -56,7 +59,6 @@ func unpack(cmd *cobra.Command, args []string) {
 	}
 }
 
-// TODO: refactor this
 func unpackedFileName(path string) string {
 	fileName := filepath.Base(path)
 

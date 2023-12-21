@@ -82,7 +82,6 @@ func splitByChunks(bStr string, chunkSize int) BinaryChunks {
 	if buf.Len() != 0 {
 		lastChunk := buf.String()
 		lastChunk += strings.Repeat("0", chunkSize-len(lastChunk))
-
 		res = append(res, BinaryChunk(lastChunk))
 	}
 

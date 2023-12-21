@@ -14,6 +14,12 @@ type decodingTree struct {
 
 type EncodingTable map[rune]string
 
+func (et EncodingTable) Decode(str string) string {
+	dt := et.decodingTree()
+
+	return dt.Decode(str)
+}
+
 func (et EncodingTable) decodingTree() decodingTree {
 	res := decodingTree{}
 
@@ -29,6 +35,7 @@ func (dt *decodingTree) Decode(str string) string {
 
 	currNode := dt
 
+	// 0101(z)111(x)110101
 	for _, ch := range str {
 		if currNode.Value != "" {
 			buf.WriteString(currNode.Value)

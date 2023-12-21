@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"archiver/lib/compression/vlc/table"
+	"GoArchiver/lib/compression/vlc/table"
 )
 
 type Generator struct{}
@@ -81,8 +81,10 @@ func assignCodes(codes []code) {
 		return
 	}
 
+	// divide codes
 	divider := bestDividerPosition(codes)
 
+	// add 0 or 1
 	for i := 0; i < len(codes); i++ {
 		codes[i].Bits <<= 1
 		codes[i].Size++
